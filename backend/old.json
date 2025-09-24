@@ -1,0 +1,52 @@
+[
+  {
+    "id": 1,
+    "name": "Naseem",
+    "rollno": "R2020CS001",
+    "college": "Birsa Institute of Technology, Sindri",
+    "year_of_passing": 2024,
+    "cgpa": 8.5,
+    "branch": "Computer Science and Engineering",
+    "date_of_issue": "2024-07-15"
+  },
+  {
+    "id": 2,
+    "name": "Avannish",
+    "rollno": "R2020EE014",
+    "college": "National Institute of Technology, Jamshedpur",
+    "year_of_passing": 2024,
+    "cgpa": 8.9,
+    "branch": "Electrical Engineering",
+    "date_of_issue": "2024-08-01"
+  },
+  {
+    "id": 3,
+    "name": "Saivarad",
+    "rollno": "R2019ME045",
+    "college": "BIT Mesra, Ranchi",
+    "year_of_passing": 2023,
+    "cgpa": 7.8,
+    "branch": "Mechanical Engineering",
+    "date_of_issue": "2023-07-20"
+  },
+  {
+    "id": 4,
+    "name": "Gopikrishna",
+    "rollno": "R2021IT032",
+    "college": "Ranchi University",
+    "year_of_passing": 2025,
+    "cgpa": 9.2,
+    "branch": "Information Technology",
+    "date_of_issue": "2025-08-12"
+  },
+  {
+    "id": 5,
+    "name": "Ruel",
+    "rollno": "R2021CS123",
+    "college": "Kolhan University, Chaibasa",
+    "year_of_passing": 2022,
+    "cgpa": 7.5,
+    "branch": "Civil Engineering",
+    "date_of_issue": "2022-09-05"
+  }
+]
