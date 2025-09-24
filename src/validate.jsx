@@ -1,35 +1,42 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import "../index.css";
 
 function Validate() {
   const [file, setFile] = useState(null);
-  const [loading, setLoading] = useState(false);
+  const [validated, setValidated] = useState(false);
+  const navigate = useNavigate();
 
-  const handleFileChange = (e) => {
-    setFile(e.target.files[0]);
-  };
-
-  const handleValidate = () => {
+  const handleSubmit = (e) => {
+    e.preventDefault();
     if (!file) {
-      alert("⚠️ Please upload a document first!");
+      alert("Please upload a certificate!");
       return;
     }
-    setLoading(true);
-    setTimeout(() => {
-      localStorage.setItem("validated", "true");
-      setLoading(false);
-      alert("✅ Document validated successfully!");
-    }, 2000);
+    // fake validation success
+    setValidated(true);
   };
 
   return (
     <div className="validate-page">
-      <div className="validate-card dark-box">
+      <div className="validate-card">
         <div className="validate-avatar">📄</div>
-        <h2>Upload Document for Validation</h2>
-        <input type="file" onChange={handleFileChange} />
-        <button onClick={handleValidate} disabled={loading}>
-          {loading ? "Validating..." : "Validate"}
-        </button>
+        <h2>Validate Certificate</h2>
+        <form onSubmit={handleSubmit}>
+          <input
+            type="file"
+            accept=".pdf,.png,.jpg"
+            onChange={(e) => setFile(e.target.files[0])}
+          />
+          <button type="submit">Validate</button>
+        </form>
+
+        {validated && (
+          <div className="upload-option">
+            <p>Do you want to upload this certificate?</p>
+            <button onClick={() => navigate("/upload")}>Yes, Upload</button>
+          </div>
+        )}
       </div>
     </div>
   );
