@@ -1,48 +1,41 @@
+import React from "react";
 import { NavLink, useNavigate } from "react-router-dom";
-import { useEffect, useState } from "react";
 
 function Navbar() {
-  const [validated, setValidated] = useState(false);
   const navigate = useNavigate();
+  const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
+  const role = localStorage.getItem("role");
 
-  useEffect(() => {
-    const status = localStorage.getItem("validated");
-    if (status === "true") {
-      setValidated(true);
-    }
-  }, []);
-
-  const handleResultClick = (e) => {
-    if (!validated) {
-      e.preventDefault();
-      alert("⚠️ Please validate a document first!");
-    }
+  const handleLogout = () => {
+    localStorage.removeItem("isLoggedIn");
+    localStorage.removeItem("role");
+    navigate("/");
   };
 
   return (
     <nav className="navbar">
-      <h2>AuthValidator</h2>
-      <ul>
-        <li>
-          <NavLink to="/" className="glass-link">
-            Home
-          </NavLink>
-        </li>
-        <li>
-          <NavLink to="/validate" className="glass-link">
-            Validate
-          </NavLink>
-        </li>
-        <li>
-          <NavLink to="/result" className="glass-link" onClick={handleResultClick}>
-            Result
-          </NavLink>
-        </li>
-        <li>
-          <NavLink to="/login" className="glass-link">
-            Login
-          </NavLink>
-        </li>
+      <div className="logo-container">
+        <img src="/logo.png" alt="Veritas Logo" className="logo-img" />
+      </div>
+
+      <ul className="nav-links">
+        <li><NavLink to="/" className="glass-link">Home</NavLink></li>
+
+        {isLoggedIn && (
+          <>
+            <li><NavLink to="/validate" className="glass-link">Validate</NavLink></li>
+            <li><NavLink to="/upload" className="glass-link">Upload</NavLink></li>
+            {role === "admin" && (
+              <li><NavLink to="/admin" className="glass-link">Admin Panel</NavLink></li>
+            )}
+          </>
+        )}
+
+        {!isLoggedIn ? (
+          <li><NavLink to="/login" className="glass-link">Login</NavLink></li>
+        ) : (
+          <li><button onClick={handleLogout} className="glass-link">Logout</button></li>
+        )}
       </ul>
     </nav>
   );
