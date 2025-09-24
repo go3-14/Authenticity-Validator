@@ -1,32 +1,45 @@
 import React, { useState } from "react";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import "../index.css";
 
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [role, setRole] = useState("user"); // default
   const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // ✅ Dummy check (replace with real backend later)
-    if (email === "admin@example.com" && password === "password") {
-      localStorage.setItem("isLoggedIn", "true"); // ✅ save login state
-      alert("✅ Login successful!");
-      navigate("/validate"); // ✅ redirect to validate
+    const response = await fetch("http://127.0.0.1:8000/login/", {
+      method: "POST",
+      headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      body: new URLSearchParams({
+        username: email,
+        password: password,
+      }),
+    });
+
+    if (response.ok) {
+      alert("Login successful!");
+      localStorage.setItem("isLoggedIn", "true");
+      localStorage.setItem("role", role);
+      navigate("/");
     } else {
-      alert("❌ Invalid credentials!");
+      alert("Invalid credentials!");
     }
   };
 
   return (
     <div className="login-page">
-      <div className="login-card dark-box">
-        <div className="login-avatar">🔒</div>
+      <div className="login-card">
+        <div className="login-avatar">
+          {role === "user" ? "👤" : "🛡️"}
+        </div>
         <h2>Sign In</h2>
         <form onSubmit={handleSubmit}>
           <input
-            type="email"
+            type="text"
             placeholder="Email Address"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
@@ -41,11 +54,30 @@ function Login() {
             required
           />
 
+          {/* Role Selection */}
+          <div className="role-toggle">
+            <button
+              type="button"
+              className={`role-btn ${role === "user" ? "active" : ""}`}
+              onClick={() => setRole("user")}
+            >
+              👤 User
+            </button>
+            <button
+              type="button"
+              className={`role-btn ${role === "admin" ? "active" : ""}`}
+              onClick={() => setRole("admin")}
+            >
+              🛡️ Admin
+            </button>
+          </div>
+
           <button type="submit">Login</button>
         </form>
-        <p className="login-footer">
-          Don’t have an account? <Link to="/register">Create one</Link>
-        </p>
+
+        <div className="login-footer">
+          No account? Just <a href="/register">register here</a>
+        </div>
       </div>
     </div>
   );
