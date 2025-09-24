@@ -1,33 +1,34 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import "../index.css";
+import { useNavigate, Link } from "react-router-dom";
 
 function Register() {
+  const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
   const [role, setRole] = useState("user");
+  const [error, setError] = useState("");
   const navigate = useNavigate();
 
-  const handleSubmit = async (e) => {
+  const handleRegister = (e) => {
     e.preventDefault();
 
-    const response = await fetch("http://127.0.0.1:8000/register/", {
-      method: "POST",
-      headers: { "Content-Type": "application/x-www-form-urlencoded" },
-      body: new URLSearchParams({
-        username: email,
-        password: password,
-      }),
-    });
-
-    if (response.ok) {
-      alert("Registered successfully!");
-      localStorage.setItem("isLoggedIn", "true");
-      localStorage.setItem("role", role);
-      navigate("/");
-    } else {
-      alert("Registration failed!");
+    if (!fullName || !email || !password || !confirmPassword) {
+      setError("⚠️ Please fill in all fields.");
+      return;
     }
+
+    if (password !== confirmPassword) {
+      setError("⚠️ Passwords do not match.");
+      return;
+    }
+
+    // Save in localStorage (replace with API later)
+    localStorage.setItem("isLoggedIn", "true");
+    localStorage.setItem("role", role);
+    localStorage.setItem("user", JSON.stringify({ fullName, email, role }));
+
+    navigate("/");
   };
 
   return (
@@ -37,31 +38,42 @@ function Register() {
           {role === "user" ? "👤" : "🛡️"}
         </div>
         <h2>Create Account</h2>
-        <form onSubmit={handleSubmit}>
+        {error && <p style={{ color: "orange", fontSize: "0.9rem" }}>{error}</p>}
+
+        <form onSubmit={handleRegister}>
           <input
             type="text"
+            placeholder="Full Name"
+            value={fullName}
+            onChange={(e) => setFullName(e.target.value)}
+          />
+          <input
+            type="email"
             placeholder="Email Address"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            required
           />
-
           <input
             type="password"
             placeholder="Password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            required
+          />
+          <input
+            type="password"
+            placeholder="Confirm Password"
+            value={confirmPassword}
+            onChange={(e) => setConfirmPassword(e.target.value)}
           />
 
-          {/* Role Selection */}
+          {/* Role toggle buttons with icons */}
           <div className="role-toggle">
             <button
               type="button"
               className={`role-btn ${role === "user" ? "active" : ""}`}
               onClick={() => setRole("user")}
-            >
-              👤 User
+            > 
+             👤 User
             </button>
             <button
               type="button"
@@ -76,7 +88,7 @@ function Register() {
         </form>
 
         <div className="login-footer">
-          Already have an account? <a href="/login">Login here</a>
+          Already have an account? <Link to="/login">Login here</Link>
         </div>
       </div>
     </div>
