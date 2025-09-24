@@ -1,0 +1,19 @@
+# Ignore Jupyter Notebook checkpoints
+.ipynb_checkpoints/
+
+# Ignore dataset folders
+dataset/
+trainimages/
+testimages/
+real_signs/
+
+# Ignore test images
+*.jpg
+*.png
+
+# Ignore model weights
+*.pth
+
+# Ignore system files
+.DS_Store
+Thumbs.db
