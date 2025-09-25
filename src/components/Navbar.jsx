@@ -1,61 +1,65 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
-import { useAuth } from '../context/AuthContext.js'; // Import the useAuth hook
+import { useAuth } from '../context/AuthContext.js';
+import logo from './veritas.png';
 
 function Navbar() {
-  const { isAuthenticated, logout } = useAuth(); // Get auth state and logout function
+  const { isAuthenticated, logout } = useAuth();
   const navigate = useNavigate();
+  const [isMenuOpen, setIsMenuOpen] = useState(false); // State for mobile menu
 
   const handleLogout = () => {
-    logout(); // Call the logout function from context
-    navigate('/login'); // Redirect to login page after logout
+    logout();
+    navigate('/login');
+    setIsMenuOpen(false); // Close menu on logout
   };
+
+  const closeMenu = () => setIsMenuOpen(false);
 
   return (
     <nav className="navbar">
-      <h2>Veritas</h2>
-      <ul>
-        <li>
-          <NavLink to="/" className="glass-link" activeClassName="active" exact>
-            Home
-          </NavLink>
-        </li>
+      <h2><img src= {logo} alt="logo"/></h2>
+
+      {/* Hamburger Menu Button - Only visible on mobile */}
+      <button className="hamburger" onClick={() => setIsMenuOpen(!isMenuOpen)}>
+        &#9776; {/* This is the hamburger icon */}
+      </button>
+
+      {/* Desktop Links - Hidden on mobile */}
+      <ul className="desktop-links">
+        <li><NavLink to="/" className="glass-link">Home</NavLink></li>
         {isAuthenticated ? (
-          // Show these links if the user IS authenticated
           <>
-            <li>
-              <NavLink to="/validate" className="glass-link" activeClassName="active">
-                Validate
-              </NavLink>
-            </li>
-            <li>
-              <NavLink to="/upload" className="glass-link" activeClassName="active">
-                Upload
-              </NavLink>
-            </li>
-            
-            <li>
-              <button onClick={handleLogout} className="glass-link">
-                Logout
-              </button>
-            </li>
+            <li><NavLink to="/validate" className="glass-link">Validate</NavLink></li>
+            <li><NavLink to="/upload" className="glass-link">Upload</NavLink></li>
+            <li style={{ marginTop: '-9px' }}><button onClick={handleLogout} className="glass-link">Logout</button></li>
           </>
         ) : (
-          // Show these links if the user IS NOT authenticated
           <>
-            <li>
-              <NavLink to="/login" className="glass-link" activeClassName="active">
-                Login
-              </NavLink>
-            </li>
-            <li>
-              <NavLink to="/register" className="glass-link" activeClassName="active">
-                Register
-              </NavLink>
-            </li>
+            <li><NavLink to="/login" className="glass-link">Login</NavLink></li>
+            <li><NavLink to="/register" className="glass-link">Register</NavLink></li>
           </>
         )}
       </ul>
+
+      {/* Mobile Menu - Only visible when isMenuOpen is true */}
+      {isMenuOpen && (
+        <ul className="mobile-links">
+            <li onClick={closeMenu}><NavLink to="/" className="glass-link">Home</NavLink></li>
+          {isAuthenticated ? (
+            <>
+              <li onClick={closeMenu}><NavLink to="/validate" className="glass-link">Validate</NavLink></li>
+              <li onClick={closeMenu}><NavLink to="/upload" className="glass-link">Upload</NavLink></li>
+              <li style={{ marginTop: '-9px' }}><button onClick={handleLogout} className="glass-link">Logout</button></li>
+            </>
+          ) : (
+            <>
+              <li onClick={closeMenu}><NavLink to="/login" className="glass-link">Login</NavLink></li>
+              <li onClick={closeMenu}><NavLink to="/register" className="glass-link">Register</NavLink></li>
+            </>
+          )}
+        </ul>
+      )}
     </nav>
   );
 }
