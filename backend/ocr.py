@@ -21,12 +21,12 @@ app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 # --- Load Database and OCR Model (once at startup for efficiency) ---
 try:
-    with open("old.json", "r") as f:
+    with open("database.json", "r") as f:
         records = json.load(f)
-    print("Database 'old.json' loaded successfully.")
+    print("Database 'database.json' loaded successfully.")
 except FileNotFoundError:
     records = []
-    print("Warning: 'old.json' not found. The application will run with an empty database.")
+    print("Warning: 'database.json' not found. The application will run with an empty database.")
 
 # Initialize the EasyOCR reader. This might take a moment.
 print("Loading EasyOCR model into memory...")

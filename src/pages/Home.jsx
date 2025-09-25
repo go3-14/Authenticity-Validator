@@ -1,29 +1,35 @@
+
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import Features from "../components/Features";
 
 function Home() {
   const navigate = useNavigate();
 
   const handleStartValidation = () => {
-    const isLoggedIn = localStorage.getItem("isLoggedIn");
-
+    const isLoggedIn = localStorage.getItem("authToken");
     if (isLoggedIn) {
-      navigate("/validate"); 
+      navigate("/validate");
     } else {
-      alert("⚠️ Please login before starting validation.");
-      navigate("/login"); 
+      navigate("/login");
     }
   };
 
   return (
-    <section className="hero">
-      <h1>🔒 Authenticity Validator</h1>
-      <p>
-        Verify the authenticity of certificates and documents with ease, speed,
-        and reliability.
-      </p>
-      <button onClick={handleStartValidation}>Start Validation</button>
-    </section>
+    <>
+      {/* === Hero Section === */}
+      <section className="hero">
+        <h1>🔒 Authenticity Validator</h1>
+        <p>
+          Verify the authenticity of certificates and documents with ease,
+          speed, and reliability.
+        </p>
+        <button onClick={handleStartValidation}>Start Validation</button>
+      </section>
+
+      {/* === Widgets Section (Features) === */}
+      <Features />
+    </>
   );
 }
 
