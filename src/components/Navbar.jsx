@@ -32,7 +32,7 @@ function Navbar() {
           <>
             <li><NavLink to="/validate" className="glass-link">Validate</NavLink></li>
             <li><NavLink to="/upload" className="glass-link">Upload</NavLink></li>
-            <li><button onClick={handleLogout} className="glass-link">Logout</button></li>
+            <li style={{ marginTop: '-9px' }}><button onClick={handleLogout} className="glass-link">Logout</button></li>
           </>
         ) : (
           <>
@@ -50,7 +50,7 @@ function Navbar() {
             <>
               <li onClick={closeMenu}><NavLink to="/validate" className="glass-link">Validate</NavLink></li>
               <li onClick={closeMenu}><NavLink to="/upload" className="glass-link">Upload</NavLink></li>
-              <li><button onClick={handleLogout} className="glass-link">Logout</button></li>
+              <li style={{ marginTop: '-9px' }}><button onClick={handleLogout} className="glass-link">Logout</button></li>
             </>
           ) : (
             <>
