@@ -1,7 +1,7 @@
 function Features() {
   return (
     <section className="features">
-      <h2>Why Choose AuthValidator?</h2>
+      <h2>Why Choose Veritas?</h2>
       <div className="feature-grid">
         <div className="feature-card">
           <h3>🔒 Secure</h3>

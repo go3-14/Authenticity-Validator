@@ -6,7 +6,9 @@ body {
   color: #222;
 }
 
-h1, h2, h3 {
+h1,
+h2,
+h3 {
   margin: 0;
   font-weight: 700;
 }
@@ -20,7 +22,7 @@ button {
   color: white;
   font-size: 1rem;
   transition: 0.3s;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
   border: 2px solid white;
 }
 
@@ -33,39 +35,45 @@ button:hover {
 .navbar {
   background: #111;
   color: #fff;
-  padding: 0rem 2rem;
-  display: flex;
-  justify-content: space-between;
+  padding: 0.5rem 2rem;
+  display: grid; /* Use Grid for layout */
+  grid-template-columns: auto 1fr; /* 2 columns: Logo | Links */
   align-items: center;
   position: sticky;
   top: 0;
   z-index: 1000;
 }
 
-/* Ensure the desktop UL has the display:flex property */
+/* Logo Styling */
+.logo-container {
+  grid-column: 1 / 2;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem; /* Space between logo and text */
+}
+
+.logo-img {
+  height: 45px; /* Adjust size as needed */
+  width: auto;
+}
+
+.logo-text {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: white;
+  margin: 0;
+}
+
+/* Desktop Links Alignment */
 .navbar .desktop-links {
-    display: flex;
-    list-style: none;
-    gap: 1rem;
-    margin: 0;
-    margin-top: 10px;
-    padding: 0;
-}
-
-
-.navbar h2 {
-  font-size: 2rem;
-}
-
-/* --- NEW: Logo Styling --- */
-.navbar h2 {
-  margin: 0; /* Remove default heading margin */
-}
-
-.navbar h2 img {
-  height: 100px; /* Adjust this vaue to make the logo bigger or smaller */
-  width: auto; /* Maintain aspect ratio */
-  display: block; /* Helps prevent extra space below the image */
+  grid-column: 2 / 3;
+  justify-self: end; /* Aligns links to the right */
+  display: flex;
+  list-style: none;
+  gap: 1.5rem;
+  margin: 0;
+  padding: 0;
+  align-items: center; /* Vertically align items */
 }
 
 /* Glass-style nav links */
@@ -81,17 +89,12 @@ button:hover {
   transition: 0.3s;
   position: relative;
 }
-.auth-btn-wrapper {
-  display: flex;
-  align-items: center;
-}
 
 .glass-link:hover {
   background: rgba(255, 255, 255, 0.2);
   color: #00c6ff;
 }
 
-/* Active nav link */
 .glass-link.active {
   color: #00c6ff;
   font-weight: 600;
@@ -99,36 +102,34 @@ button:hover {
   border: 1px solid rgba(255, 255, 255, 0.25);
 }
 
-.glass-link.active::after {
-  content: none;
-}
-
+/* Hamburger Menu Button */
 .hamburger {
-  display: none; /* Hidden on desktop */
+  display: none;
+  grid-column: 2 / 3; /* Hamburger takes the place of the links */
+  justify-self: end;
   font-size: 1.5rem;
   background: rgba(255, 255, 255, 0.1);
   border: 1px solid rgba(255, 255, 255, 0.2);
   color: white;
   cursor: pointer;
-  z-index: 1001; /* Make sure it's on top */
+  z-index: 1001;
   border-radius: 8px;
   padding: 0.2rem 0.5rem;
   line-height: 1;
 }
 
-/* Mobile Links Menu (the dropdown) */
-/* This styles how the menu looks WHEN React renders it. */
+/* Mobile Dropdown Menu */
 .mobile-links {
   list-style: none;
-  background: rgba(25, 25, 25, 0.9); /* Dark semi-transparent background */
+  background: rgba(25, 25, 25, 0.9);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
   position: absolute;
-  top: 70px; /* Position it right below the navbar */
+  top: 70px;
   right: 1rem;
   width: 200px;
   padding: 1rem;
-  box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
   z-index: 999;
   display: flex;
   flex-direction: column;
@@ -138,78 +139,69 @@ button:hover {
   border: 1px solid rgba(255, 255, 255, 0.18);
 }
 
-/* Style each link item in the mobile menu */
 .mobile-links li {
   width: 100%;
 }
 
-/* Make the links and buttons fill the width of the dropdown */
 .mobile-links .glass-link {
-    display: block;
-    width: 100%;
-    text-align: center;
-    box-sizing: border-box; /* This ensures padding is included inside the width, fixing the overflow */
+  display: block;
+  width: 100%;
+  text-align: center;
+  box-sizing: border-box;
 }
-
-
-/* --- Media Query for Mobile Devices --- */
-/* These styles apply only when the screen is 768px wide or less. */
-@media (max-width: 768px) {
-  /* This is the key change: we use a more specific selector to hide the desktop links */
-  .navbar .desktop-links {
-    display: none; /* Hide the desktop links */
-  }
-
-  .hamburger {
-    display: block; /* Show the hamburger button */
-  }
-
-  /* --- FIX for Large Cards on Mobile --- */
-  /* This will make the cards smaller and more "zoomed out" on phones */
-  .validate-card,
-  .login-card {
-    width: 85% !important; /* Use percentage and !important to force the style */
-    max-width: 380px !important;
-    padding: 1.5rem 1rem !important; /* Reduce the padding further */
-    margin: 1rem auto !important; /* Set left/right margin to auto to center the card */
-  }
-
-  .validate-card h2,
-  .login-card h2 {
-    font-size: 1.3rem !important; /* Make the main title a bit smaller */
-  }
-}
-
 
 /* ================= HERO ================= */
 .hero {
   position: relative;
   text-align: center;
-  padding: 6rem 2rem 4rem;
-  background: linear-gradient(135deg, #007bff, #00c6ff);
+  padding: 8rem 2rem 6rem;
+  background: linear-gradient(270deg, #007bff, #00c6ff, #0099ff, #007bff);
+  background-size: 400% 400%;
+  animation: gradientShift 8s ease infinite;
   color: white;
   overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0, 123, 255, 0.3);
+}
+
+.hero-icon {
+  color: gold;
+  font-size: 3.5rem;
+  margin-bottom: 1.5rem;
+  display: inline-block;
 }
 
 .hero h1 {
-  font-size: 3rem;
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  font-weight: 800;
+  margin-bottom: 1.5rem;
+  background: linear-gradient(45deg, #ffffff, #e3f2fd, #ffffff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3);
+  animation: titleGlow 3s ease-in-out infinite alternate;
 }
 
 .hero p {
-  margin: 1rem auto;
-  font-size: 1.2rem;
-  max-width: 600px;
+  margin: 2rem auto;
+  font-size: clamp(1.1rem, 2.5vw, 1.4rem);
+  max-width: 700px;
+  line-height: 1.7;
+  font-weight: 400;
+  opacity: 0.95;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
 }
 
 .hero::after {
   content: "";
   position: absolute;
-  bottom: -60px;
+  bottom: -80px;
   left: 0;
   width: 100%;
-  height: 120px;
+  height: 160px;
   background: #f9fafc;
   border-radius: 50% 50% 0 0;
+  box-shadow: 0 -5px 15px rgba(0, 0, 0, 0.1);
 }
 
 /* ================= FEATURES ================= */
@@ -218,15 +210,12 @@ button:hover {
   padding: 3rem 2rem;
   max-width: 1000px;
   text-align: center;
-
   background: linear-gradient(270deg, #f9fafc, #eef4fa, #f9fafc);
   background-size: 400% 400%;
   animation: gradientShift 10s ease infinite;
-
   border-radius: 20px;
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
 }
-
 
 .features h2 {
   font-size: 2rem;
@@ -246,7 +235,7 @@ button:hover {
   background: white;
   border-radius: 20px;
   padding: 2rem;
-  box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
   transition: transform 0.3s;
 }
 
@@ -264,47 +253,45 @@ button:hover {
   line-height: 1.5rem;
 }
 
-/* ================= VALIDATE PAGE ================= */
-/* Validate Page Background */
-.validate-page {
+/* ================= PAGE BACKGROUNDS & CARDS ================= */
+.login-page,
+.register-page,
+.validate-page,
+.upload-page,
+.result-page { /* Added result-page */
   min-height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
-  background: linear-gradient(135deg, #007bff, #00c6ff);
+  background: linear-gradient(270deg, #007bff, #00c6ff, #0099ff, #007bff);
+  background-size: 400% 400%;
+  animation: gradientShift 10s ease infinite;
   background-attachment: fixed;
+  padding: 1rem;
+  box-sizing: border-box;
 }
 
-/* Validate Page Background */
-.validate-page {
-  min-height: 100vh;
-  display: flex;
-  justify-content: center;   /* ✅ centers horizontally */
-  align-items: center;       /* ✅ centers vertically */
-  background: linear-gradient(135deg, #007bff, #00c6ff); /* ✅ same as login */
-  background-attachment: fixed;
-}
-
-/* Validate Card */
 .validate-card {
-  background: linear-gradient(270deg, rgba(255, 255, 255, 0.95), rgba(245, 250, 255, 0.9), rgba(255, 255, 255, 0.95));
+  background: linear-gradient(
+    270deg,
+    rgba(255, 255, 255, 0.95),
+    rgba(245, 250, 255, 0.9),
+    rgba(255, 255, 255, 0.95)
+  );
   background-size: 300% 300%;
   animation: gradientShift 12s ease infinite;
-
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   border-radius: 20px;
   padding: 3rem 2rem;
-  width: 400px;
+  width: auto;
+  max-width: 600px;
   text-align: center;
   color: #222;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
   animation: fadeIn 0.8s ease-in-out;
 }
 
-
-
-/* Avatar/Icon */
 .validate-avatar {
   width: 80px;
   height: 80px;
@@ -318,36 +305,47 @@ button:hover {
   color: white;
 }
 
-/* File input */
-.validate-card input[type="file"] {
+.file-input-label {
   display: block;
-  margin: 1rem auto;
-  padding: 0.6rem;
-  border-radius: 10px;
-  background: #e9ecef; /* A light grey background for the input */
-  color: #333; /* Dark grey text color, THIS IS THE FIX */
-  border: 1px solid #ced4da; /* A subtle border */
-  cursor: pointer;
   width: 100%;
   max-width: 280px;
-}
-
-.validate-card input[type="file"]::-webkit-file-upload-button {
-  background: linear-gradient(135deg, #007bff, #00c6ff);
-  color: white;
-  border: none;
-  padding: 0.5rem 1rem;
-  border-radius: 8px;
+  margin: 1rem auto;
+  padding: 0.8rem;
+  border-radius: 10px;
+  background: #e9ecef;
+  color: #333;
+  border: 1px solid #ced4da;
   cursor: pointer;
-  transition: 0.3s;
+  font-weight: 500;
 }
 
-.validate-card input[type="file"]::-webkit-file-upload-button:hover {
-  background: linear-gradient(135deg, #0056b3, #0088cc);
+.file-input-label.camera {
+  background: #28a745;
+  color: white;
+  border-color: #28a745;
 }
 
-/* Button */
-.validate-card button {
+.file-input-label input[type="file"] {
+  display: none;
+}
+
+.or-divider {
+  font-weight: 600;
+  color: #6c757d;
+}
+
+.file-name {
+  margin-top: 1rem;
+  font-style: italic;
+  color: #495057;
+}
+
+.error-message {
+  color: #dc3545;
+}
+
+.validate-card button,
+.upload-card button {
   width: 100%;
   padding: 0.9rem;
   border-radius: 12px;
@@ -356,56 +354,156 @@ button:hover {
   font-size: 1rem;
   font-weight: 600;
   margin-top: 1rem;
-  background: linear-gradient(135deg, #007bff, #00c6ff);
-  color: white;
-  transition: 0.3s;
 }
 
-.validate-card button:hover {
-  transform: scale(1.05);
-  background: linear-gradient(135deg, #0056b3, #0088cc);
+.validation-options {
+  display: flex;
+  gap: 1.5rem;
+  width: 100%;
+  margin-top: 2rem;
 }
 
+.validation-option-card {
+  flex: 1;
+  background: #ffffff;
+  border-radius: 15px;
+  padding: 2rem 1.5rem;
+  border: 1px solid #e0e0e0;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.validation-option-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0, 123, 255, 0.15);
+  border-color: #007bff;
+}
+
+.option-icon {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+}
+
+.validation-option-card h3 {
+  font-size: 1.2rem;
+  color: #007bff;
+  margin-bottom: 0.5rem;
+}
+
+.validation-option-card p {
+  font-size: 0.9rem;
+  color: #6c757d;
+  line-height: 1.4;
+}
+
+.back-btn {
+  background: none;
+  border: none;
+  box-shadow: none;
+  color: #6c757d;
+  font-weight: 500;
+  cursor: pointer;
+  padding: 0;
+  font-size: 0.9rem;
+  margin-top: 1.5rem;
+  text-decoration: underline;
+}
+
+.back-btn:hover {
+  color: #007bff;
+  background: none;
+}
 
 /* ================= RESULT PAGE ================= */
-.result {
-  text-align: center;
-  margin: 6rem auto;
-  padding: 3rem;
-  max-width: 500px;
-
-  background: linear-gradient(270deg, #ffffff, #f2f6fb, #ffffff);
-  background-size: 400% 400%;
-  animation: gradientShift 15s ease infinite;
-
+.result-card {
+  background: #ffffff;
   border-radius: 20px;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+  padding: 2.5rem;
+  width: 100%;
+  max-width: 600px;
+  text-align: center;
+  color: #222;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+  animation: fadeIn 0.8s ease-in-out;
 }
 
-
-.valid {
-  color: green;
-  font-size: 1.5rem;
-  font-weight: bold;
-}
-
-.invalid {
-  color: red;
-  font-size: 1.5rem;
-  font-weight: bold;
-}
-
-/* ================= LOGIN & REGISTER ================= */
-.login-page {
-  min-height: 100vh;
+.result-status {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
   display: flex;
   justify-content: center;
   align-items: center;
-  background: linear-gradient(135deg, #007bff, #00c6ff);
-  background-attachment: fixed;
+  margin: 0 auto 1.5rem;
+  font-size: 2rem;
 }
 
-/* Dark glassy box */
+.result-status.valid {
+  background-color: #e0ffe0;
+  color: #28a745;
+}
+
+.result-status.invalid {
+  background-color: #ffe0e0;
+  color: #dc3545;
+}
+
+.result-title {
+  font-size: 1.8rem;
+  margin-bottom: 0.5rem;
+}
+
+.result-summary {
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+}
+
+.valid-text {
+  color: #28a745;
+}
+
+.invalid-text {
+  color: #dc3545;
+}
+
+.result-details,
+.result-record,
+.result-issues {
+  text-align: left;
+  margin-top: 1.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid #e9ecef;
+}
+
+.result-details p,
+.result-record p,
+.result-issues p {
+  margin: 0.5rem 0;
+  color: #495057;
+}
+
+.result-record h4,
+.result-issues h4 {
+  margin-bottom: 1rem;
+  color: #212529;
+}
+
+.result-issues {
+  color: #dc3545;
+  background-color: #fff3f3;
+  padding: 1rem;
+  border-radius: 10px;
+}
+
+.result-button {
+  margin-top: 2rem;
+  width: 100%;
+}
+
+
+/* ================= LOGIN & REGISTER ================= */
 .login-card {
   background: linear-gradient(135deg, rgba(0, 30, 60, 0.9), rgba(0, 80, 160, 0.85));
   backdrop-filter: blur(12px);
@@ -419,7 +517,6 @@ button:hover {
   animation: fadeIn 0.8s ease-in-out;
 }
 
-/* Avatar/Icon */
 .login-avatar {
   width: 80px;
   height: 80px;
@@ -433,14 +530,12 @@ button:hover {
   color: white;
 }
 
-/* Title */
 .login-card h2 {
   margin-bottom: 1.5rem;
   color: #fff;
   font-weight: 600;
 }
 
-/* Inputs */
 .login-card input {
   width: 100%;
   padding: 0.9rem;
@@ -458,7 +553,6 @@ button:hover {
   color: rgba(255, 255, 255, 0.7);
 }
 
-/* Buttons */
 .login-card button {
   width: 100%;
   padding: 0.9rem;
@@ -468,17 +562,8 @@ button:hover {
   font-size: 1rem;
   font-weight: 600;
   margin-top: 1rem;
-  background: linear-gradient(135deg, #007bff, #00c6ff);
-  color: white;
-  transition: 0.3s;
 }
 
-.login-card button:hover {
-  transform: scale(1.05);
-  background: linear-gradient(135deg, #0056b3, #0088cc);
-}
-
-/* Footer Links */
 .login-footer {
   margin-top: 1rem;
   font-size: 0.9rem;
@@ -492,12 +577,6 @@ button:hover {
 
 .login-footer a:hover {
   text-decoration: underline;
-}
-
-/* Fade in */
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: translateY(0); }
 }
 
 /* ================= FOOTER ================= */
@@ -561,23 +640,7 @@ button:hover {
   margin: auto;
 }
 
-@keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
-}
-/* Animated Gradient Keyframes */
-@keyframes gradientShift {
-  0% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-  100% {
-    background-position: 0% 50%;
-  }
-}
-/* Role Toggle */
+/* ================== ROLE TOGGLE ================ */
 .role-toggle {
   display: flex;
   justify-content: space-between;
@@ -607,21 +670,85 @@ button:hover {
   border-color: #ff9800;
   transform: scale(1.05);
 }
-.logo-container {
-  display: flex;
-  align-items: center;
+
+/* ================== KEYFRAMES ================ */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
-.logo-img {
-  height: 60px;   /* bigger size */
-  width: auto;
-  cursor: pointer;
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
 
-
-.logo-text {
-  font-size: 1.5rem;
-  font-weight: 700;
-  color: white;
-  margin: 0;
+@keyframes gradientShift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
 }
+
+@keyframes titleGlow {
+  0% {
+    filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.3));
+  }
+  100% {
+    filter: drop-shadow(0 0 20px rgba(255, 255, 255, 0.6));
+  }
+}
+
+/* --- Media Query for Mobile Devices --- */
+@media (max-width: 768px) {
+  /* Revert to a simpler layout for mobile */
+  .navbar {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .navbar .desktop-links {
+    display: none;
+  }
+
+  .hamburger {
+    display: block;
+  }
+  
+  .validation-options {
+    flex-direction: column; /* Stack cards vertically on small screens */
+  }
+
+  /* Make cards smaller on mobile */
+  .validate-card,
+  .login-card,
+  .upload-card,
+  .result-card { /* Added result-card */
+    width: 100%;
+    max-width: 100%;
+    padding: 2.5rem 1.5rem;
+    box-sizing: border-box;
+  }
+
+  .validate-card h2,
+  .login-card h2,
+  .upload-card h2,
+  .result-title { /* Added result-title */
+    font-size: 1.5rem;
+  }
+}
+

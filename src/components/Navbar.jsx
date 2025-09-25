@@ -18,8 +18,11 @@ function Navbar() {
 
   return (
     <nav className="navbar">
-      <h2><img src= {logo} alt="logo"/></h2>
-
+      <div className="logo-container">
+        <img src={logo} alt="Veritas Logo" className="logo-img"/>
+        <h2 className="logo-text">Veritas</h2>
+      </div>
+      
       {/* Hamburger Menu Button - Only visible on mobile */}
       <button className="hamburger" onClick={() => setIsMenuOpen(!isMenuOpen)}>
         &#9776; {/* This is the hamburger icon */}
