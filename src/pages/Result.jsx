@@ -19,7 +19,7 @@ export default function Result() {
     );
   }
 
-  const { is_verified, filename, rollno_found_in_pdf, database_record } = verificationResult;
+  const { is_verified, filename, rollno_found, database_record } = verificationResult;
 
   return (
     <div className="result">
@@ -31,7 +31,7 @@ export default function Result() {
 
       <div className="mt-4 pt-4 border-t text-left">
         <p><strong>File Name:</strong> {filename}</p>
-        <p><strong>Roll Number Found:</strong> {rollno_found_in_pdf || 'None'}</p>
+        <p><strong>Roll Number Found:</strong> {rollno_found || 'None'}</p>
       </div>
       
       {is_verified && database_record && (

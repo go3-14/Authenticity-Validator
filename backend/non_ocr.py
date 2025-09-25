@@ -56,76 +56,55 @@ def is_fuzzy_match(a, b, threshold=70):
     return fuzz.ratio(a.lower(), b.lower()) >= threshold
 
 # --- Core Verification Logic ---
+# --- Core Verification Logic (Certificate ID based) ---
 def verify_certificate(pdf_path):
     try:
         # 1. Convert first page of PDF to image
         np_img = pdf_to_image(pdf_path)
 
-        # 2. Try QR Code first
-        roll = extract_qr_roll(np_img)
-        print("DEBUG: QR Roll Number Detected:", roll)
-
-        # 3. OCR extraction
+        # 2. OCR extraction
         results = reader.readtext(np_img)
         text = " ".join([r[1] for r in results])
         print("DEBUG: OCR Extracted Text:", text)
 
-        # 4. Fallback: regex roll no from OCR text
-        if not roll:
-            roll_match = re.search(r"(R[0-9O]{4}[A-Z]{2}[0-9O]{3}|[0-9]{7})", text, re.IGNORECASE)
-            if roll_match:
-                roll = roll_match.group(0).upper()
-                roll = roll.replace('O', '0').replace('I', '1').replace('Z','2')
-            else:
-                roll = None
-
-        # --- Helpers for normalization ---
-        def normalize_roll(r):
-            if not r:
-                return ""
-            return r.strip().upper().replace("O", "0").replace("I", "1").replace(" ", "")
-
+        # --- Helpers ---
         def normalize_text(s: str) -> str:
             s = str(s).lower()
             s = s.replace("O", "0").replace("I", "1")
             s = s.replace(",", "").replace(".", "").replace(" ", "")
             return s
 
-        # 5. Lookup in DB
+        # 3. Extract certificate ID via regex
+        # Example regex: C12345, CERT2025001, etc. Adjust to your format
+        cert_match = re.search(r"(C[0-9]{5,}|CERT[0-9]{6,})", text, re.IGNORECASE)
+        cert_id = cert_match.group(0).upper() if cert_match else None
+
+        # 4. Lookup in DB
         matched_record = None
         for record in records:
-            if normalize_roll(record.get("rollno")) == normalize_roll(roll):
+            if str(record.get("certificate_id", "")).upper() == cert_id:
                 matched_record = record
                 break
 
         if not matched_record:
             return {
                 "filename": os.path.basename(pdf_path),
-                "rollno_found": roll,
+                "certificate_id_found": cert_id,
                 "is_verified": False,
                 "error": "No matching record found in database."
             }
 
-        # 6. Cross-verify fields with OCR text
+        # 5. Cross-verify other fields with OCR text
         mismatches = []
+        for field in ["name", "cgpa", "branch", "college"]:
+            if normalize_text(matched_record.get(field, "")) not in normalize_text(text):
+                mismatches.append(field)
+                print("mismatch")
 
-        if normalize_text(matched_record["name"]) not in normalize_text(text):
-            print("name failed")
-            mismatches.append("name")
-        if normalize_text(matched_record["cgpa"]) not in normalize_text(text):
-            print("cgpa failed")
-            mismatches.append("cgpa")
-        if normalize_text(matched_record["branch"]) not in normalize_text(text):
-            print("branch failed")
-            mismatches.append("branch")
-        if normalize_text(matched_record["college"]) not in normalize_text(text):
-            print("college failed")
-            mismatches.append("college")
-
-        # 7. Return verification result
+        # 6. Return verification result
         return {
             "filename": os.path.basename(pdf_path),
-            "rollno_found": roll,
+            "certificate_id_found": cert_id,
             "is_verified": len(mismatches) == 0,
             "database_record": matched_record,
             "mismatched_fields": mismatches,

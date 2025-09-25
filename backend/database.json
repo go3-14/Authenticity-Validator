@@ -1,52 +1,46 @@
 [
   {
     "id": 6,
-    "name": "Shreya S",
-    "rollno": "R2020EC018",
-    "college": "National Institute of Technology, Durgapur",
-    "year_of_passing": 2024,
-    "cgpa": 9.0,
+    "name": "Shreya",
+    "rollno": "2020018",
+    "college": "National Institute of Technology Durgapur",
+    "year_of_passing": "2024",
+    "cgpa": "9.0",
     "branch": "Electronics and Communication Engineering",
-    "date_of_issue": "2024-07-30"
+    "date_of_issue": "2024-07-30",
+    "certificate_id": "20241030001"
   },
   {
     "id": 7,
-    "name": "Aditi M",
-    "rollno": "R2019CE056",
-    "college": "Indian Institute of Engineering Science and Technology, Shibpur",
-    "year_of_passing": 2023,
-    "cgpa": 8.1,
+    "name": "Aditi",
+    "rollno": "2019056",
+    "college": "Indian Institute of Engineering Science and Technology Shibpur",
+    "year_of_passing": "2023",
+    "cgpa": "8.1",
     "branch": "Civil Engineering",
-    "date_of_issue": "2023-08-10"
+    "date_of_issue": "2023-08-10",
+    "certificate_id": "20230810002"
   },
   {
     "id": 8,
-    "name": "Annie John",
-    "rollno": "R2021BT012",
-    "college": "Institute of Chemical Technology, Mumbai",
-    "year_of_passing": 2025,
-    "cgpa": 9.3,
+    "name": "Annie",
+    "rollno": "2021012",
+    "college": "Institute of Chemical Technology Mumbai",
+    "year_of_passing": "2025",
+    "cgpa": "9.3",
     "branch": "Biotechnology",
-    "date_of_issue": "2025-08-25"
+    "date_of_issue": "2025-08-25",
+    "certificate_id": "20250825003"
   },
   {
     "id": 9,
-    "name": "Praveen Kumar",
-    "rollno": "R2018EE033",
+    "name": "Praveen",
+    "rollno": "2018033",
     "college": "Delhi Technological University",
-    "year_of_passing": 2022,
-    "cgpa": 7.9,
+    "year_of_passing": "2022",
+    "cgpa": "7.9",
     "branch": "Electrical Engineering",
-    "date_of_issue": "2022-09-15"
-  },
-  {
-    "id": 10,
-    "name": "Ananya KT",
-    "rollno": "R2020CS025",
-    "college": "Indian Institute of Information Technology, Allahabad",
-    "year_of_passing": 2024,
-    "cgpa": 9.1,
-    "branch": "Computer Science and Engineering",
-    "date_of_issue": "2024-07-28"
+    "date_of_issue": "2022-09-15",
+    "certificate_id": "20220915004"
   }
 ]
