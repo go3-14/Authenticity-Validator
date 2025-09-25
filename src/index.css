@@ -31,9 +31,9 @@ button:hover {
 
 /* ================= NAVBAR ================= */
 .navbar {
-  background: #000000; /* Solid black */
+  background: #111;
   color: #fff;
-  padding: 1rem 2rem;
+  padding: 0rem 2rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -42,18 +42,29 @@ button:hover {
   z-index: 1000;
 }
 
+/* Ensure the desktop UL has the display:flex property */
+.navbar .desktop-links {
+    display: flex;
+    list-style: none;
+    gap: 1rem;
+    margin: 0;
+    padding: 0;
+}
+
+
 .navbar h2 {
   font-size: 2rem;
 }
 
-/* Navbar alignment */
-.navbar ul {
-  list-style: none;
-  display: flex;
-  gap: 1rem;
-  margin: 0;
-  padding: 0;
-  align-items: center; /* ✅ keeps button aligned */
+/* --- NEW: Logo Styling --- */
+.navbar h2 {
+  margin: 0; /* Remove default heading margin */
+}
+
+.navbar h2 img {
+  height: 100px; /* Adjust this vaue to make the logo bigger or smaller */
+  width: auto; /* Maintain aspect ratio */
+  display: block; /* Helps prevent extra space below the image */
 }
 
 /* Glass-style nav links */
@@ -90,6 +101,84 @@ button:hover {
 .glass-link.active::after {
   content: none;
 }
+
+.hamburger {
+  display: none; /* Hidden on desktop */
+  font-size: 1.5rem;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: white;
+  cursor: pointer;
+  z-index: 1001; /* Make sure it's on top */
+  border-radius: 8px;
+  padding: 0.2rem 0.5rem;
+  line-height: 1;
+}
+
+/* Mobile Links Menu (the dropdown) */
+/* This styles how the menu looks WHEN React renders it. */
+.mobile-links {
+  list-style: none;
+  background: rgba(25, 25, 25, 0.9); /* Dark semi-transparent background */
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  position: absolute;
+  top: 70px; /* Position it right below the navbar */
+  right: 1rem;
+  width: 200px;
+  padding: 1rem;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+  z-index: 999;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  border-radius: 15px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+/* Style each link item in the mobile menu */
+.mobile-links li {
+  width: 100%;
+}
+
+/* Make the links and buttons fill the width of the dropdown */
+.mobile-links .glass-link {
+    display: block;
+    width: 100%;
+    text-align: center;
+    box-sizing: border-box; /* This ensures padding is included inside the width, fixing the overflow */
+}
+
+
+/* --- Media Query for Mobile Devices --- */
+/* These styles apply only when the screen is 768px wide or less. */
+@media (max-width: 768px) {
+  /* This is the key change: we use a more specific selector to hide the desktop links */
+  .navbar .desktop-links {
+    display: none; /* Hide the desktop links */
+  }
+
+  .hamburger {
+    display: block; /* Show the hamburger button */
+  }
+
+  /* --- FIX for Large Cards on Mobile --- */
+  /* This will make the cards smaller and more "zoomed out" on phones */
+  .validate-card,
+  .login-card {
+    width: 85% !important; /* Use percentage and !important to force the style */
+    max-width: 380px !important;
+    padding: 1.5rem 1rem !important; /* Reduce the padding further */
+    margin: 1rem auto !important; /* Set left/right margin to auto to center the card */
+  }
+
+  .validate-card h2,
+  .login-card h2 {
+    font-size: 1.3rem !important; /* Make the main title a bit smaller */
+  }
+}
+
 
 /* ================= HERO ================= */
 .hero {
