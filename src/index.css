@@ -501,6 +501,32 @@ button:hover {
   margin-top: 2rem;
   width: 100%;
 }
+/* ================= SIGNATURE VERIFICATION ================= */
+.signature-status {
+  margin-top: 1.5rem;
+  padding: 1rem;
+  border-radius: 12px;
+  font-weight: 600;
+  text-align: center;
+}
+
+.signature-status.genuine {
+  background-color: #e0ffe0; /* Light green */
+  color: #28a745; /* Dark green text */
+  border: 1px solid #28a745;
+}
+
+.signature-status.forged {
+  background-color: #ffe0e0; /* Light red */
+  color: #dc3545; /* Dark red text */
+  border: 1px solid #dc3545;
+}
+
+.signature-status.missing {
+  background-color: #fff3e0; /* Light orange */
+  color: #ff9800; /* Orange text */
+  border: 1px solid #ff9800;
+}
 
 
 /* ================= LOGIN & REGISTER ================= */

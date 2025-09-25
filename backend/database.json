@@ -8,7 +8,8 @@
     "cgpa": "9.0",
     "branch": "Electronics and Communication Engineering",
     "date_of_issue": "2024-07-30",
-    "certificate_id": "20241030001"
+    "certificate_id": "20241030001",
+    "signature_image_path": "refs/genuine_signature.jpg"
   },
   {
     "id": 7,
@@ -19,7 +20,8 @@
     "cgpa": "8.1",
     "branch": "Civil Engineering",
     "date_of_issue": "2023-08-10",
-    "certificate_id": "20230810002"
+    "certificate_id": "20230810002",
+    "signature_image_path": "refs/genuine_signature.jpg"
   },
   {
     "id": 8,
@@ -30,7 +32,8 @@
     "cgpa": "9.3",
     "branch": "Biotechnology",
     "date_of_issue": "2025-08-25",
-    "certificate_id": "20250825003"
+    "certificate_id": "20250825003",
+    "signature_image_path": "refs/genuine_signature.jpg"
   },
   {
     "id": 9,
@@ -41,6 +44,8 @@
     "cgpa": "7.9",
     "branch": "Electrical Engineering",
     "date_of_issue": "2022-09-15",
-    "certificate_id": "20220915004"
+    "certificate_id": "20220915004",
+    "signature_image_path": "refs/genuine_signature.jpg"
   }
 ]
+
